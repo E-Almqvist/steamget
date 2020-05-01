@@ -19,9 +19,13 @@ namespace steamget {
 			}
 		}
 	}
+
+	void downloadItem() {
+		PublishedFileId_t a;
+	}
 }
 
 int main( int argc, char** argv ) {
-	steamget::getArgs( argc, argv );
+	steamget::getArgs( argc, argv ); // apply the arguments
 	return 0;
 }
