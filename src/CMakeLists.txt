@@ -3,5 +3,5 @@ project(steamget)
 
 add_executable(steamget steamget.cpp)
 
-add_subdirectory( lib/curlpp )
-target_link_libraries( steamget curlpp )
+add_subdirectory(lib/curlpp)
+target_link_libraries(steamget curlpp)

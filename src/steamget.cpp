@@ -1,11 +1,11 @@
 #include <iostream>
-#include "lib/curlpp/include/curlpp/cURLpp.hpp"
-#include "lib/curlpp/include/curlpp/Options.hpp"
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Options.hpp>
 
 using namespace std;
 
 namespace steamget {
-	string url = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v0001/";
+	string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
 
 	void info( string txt, bool linebreak = true ) {
 		cout << txt;
@@ -37,12 +37,12 @@ namespace steamget {
 		info( "Downloading addon: ", false );
 		cout << addonInfo.addonID << endl;
 
-		curlpp::Cleanup cleanup;
-		ostringstream os;
+		//curlpp::Cleanup cleanup;
+		//ostringstream os;
 		
-		os << curlpp::options::Url( url );
+		//os << curlpp::options::Url( SteamURL );
 
-		cout << os << endl;
+		//cout << os << endl;
 	}
 }
 
