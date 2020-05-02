@@ -3,4 +3,5 @@ project(steamget)
 
 add_executable(steamget steamget.cpp)
 
-target_link_libraries( steamget /home/elal/Projects/steamget/lib/steamsdk/libsteam_api.so )
+add_subdirectory( lib/curlpp )
+target_link_libraries( steamget curlpp )
