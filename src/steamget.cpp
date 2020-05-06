@@ -35,7 +35,7 @@ namespace steamget {
 
 	void downloadItem( params addonInfo ) {
 		info( "Downloading addon: ", false );
-		cout << addonInfo.addonID << endl;
+		cout << addonInfo.addonID << " at " << addonInfo.outPath << endl;
 
 		//curlpp::Cleanup cleanup;
 		//ostringstream os;
