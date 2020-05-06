@@ -1,11 +1,16 @@
+// Normal headers
 #include <iostream>
+
+// curlpp headers
 #include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 
 using namespace std;
+using namespace curlpp::options;
 
 namespace steamget {
-	string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
+	const string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
 
 	void info( string txt, bool linebreak = true ) {
 		cout << txt;
@@ -37,12 +42,22 @@ namespace steamget {
 		info( "Downloading addon: ", false );
 		cout << addonInfo.addonID << " at " << addonInfo.outPath << endl;
 
-		//curlpp::Cleanup cleanup;
-		//ostringstream os;
-		
-		//os << curlpp::options::Url( SteamURL );
+		try {
+			curlpp::Cleanup sgCleanup;
+			
+			curlpp::Easy request;
+			request.setOpt<Url>(SteamURL);
 
-		//cout << os << endl;
+			request.perform();
+		}
+
+		catch(curlpp::RuntimeError & e) {
+			cout << e.what() << endl;
+		}	
+
+		catch(curlpp::LogicError & e) {
+			cout << e.what() << endl;
+		}
 	}
 }
 
