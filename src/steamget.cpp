@@ -45,11 +45,10 @@ namespace steamget {
 		try {
 			curlpp::Cleanup sgCleanup;
 			
-			curlpp::Easy request;
-			request.setOpt<Url>(SteamURL);
-
-			request.perform();
-		}
+			{
+				cout << curlpp::options::Url(SteamURL);
+			}	
+		}	
 
 		catch(curlpp::RuntimeError & e) {
 			cout << e.what() << endl;
