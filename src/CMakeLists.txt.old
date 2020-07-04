@@ -1,9 +1,0 @@
-cmake_minimum_required (VERSION 3.6)
-project(steamget)
-
-set(HEADER_FILES ${CMAKE_SOURCE_DIR}/lib/curlpp/include/curlpp/cURLpp.hpp ${CMAKE_SOURCE_DIR}/lib/curlpp/include/curlpp/Options.hpp)
-
-add_library(curlpp ${HEADER_FILES})
-target_include_directories(curlpp PRIVATE ${CMAKE_SOURCE_DIR}/lib/curlpp)
-
-add_executable(steamget steamget.cpp)
