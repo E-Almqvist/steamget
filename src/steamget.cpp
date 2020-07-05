@@ -1,19 +1,20 @@
-// Normal headers
 #include <iostream>
+
+#include <cpr/cpr.h>
 
 using namespace std;
 
 namespace steamget {
-	const string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
+	const string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
 	
 	struct params {
-		char * addonID = "NONE";
-		char * outPath = "./";
+		string addonID = "NONE";
+		string outPath = "./";
 	};
 
 	params getArgs( int argc, char ** argv ) {
 		params returnParams;
-		for( int i = 0; i < argc; i++ ) {
+		for( int i = 0; i < argc; i++ ) { // this is dumb 
 			if( argv[i][0] == '-' ) {
 				if( argv[i][1] == 'i' ) { 
 					returnParams.addonID = argv[i+1]; 
@@ -27,6 +28,7 @@ namespace steamget {
 }
 
 int main( int argc, char** argv ) {
-	steamget::params P = steamget::getArgs( argc, argv ); // apply the arguments
+	steamget::params P = steamget::getArgs( argc, argv ); // get the arguments
+
 	return 0;
 }
