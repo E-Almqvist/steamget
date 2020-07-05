@@ -10,8 +10,10 @@ namespace parameters {
 	char* getArg( char key ) {
 		if( argc > 0 ) {
 			for( int i = 0; i < argc; i++ ) { // this is dumb 
-				if( argv[i][0] == '-' && argv[i][1] == key ) { // if it is the correct key
-					return argv[i+1]; // return whatever is behind it
+				if( argv[i][0] == '-' && sizeof(argv[i]) > 1 ) {
+					if ( argv[i][1] == key ) { // if it is the correct key
+						return argv[i+1]; // return whatever is behind it
+					}
 				}
 			}
 		}
