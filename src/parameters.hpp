@@ -1,3 +1,5 @@
+#include <iostream>
+
 namespace parameters {
 	int argc = 0;
 	char** argv;
@@ -8,12 +10,15 @@ namespace parameters {
 	}
 
 	char* getArg( char key ) {
+		int lenBuf;
 		if( argc > 0 ) {
-			for( int i = 0; i < argc; i++ ) { // this is dumb 
-				if( argv[i][0] == '-' && sizeof(argv[i]) > 1 ) {
-					if ( argv[i][1] == key ) { // if it is the correct key
-						return argv[i+1]; // return whatever is behind it
-					}
+			for( int i = 0; i < argc; i++ ) { // this is dumb
+				lenBuf = sizeof(argv[i])/sizeof(char);
+				std::cout << i << " : " << lenBuf << " |" << argv[i] << "|" << std::endl;
+
+				if( argv[i][0] == '-' && lenBuf > 1 ) {
+					// return whatever is behind it
+					if ( argv[i][1] == key ) { std::cout << "reached return" << std::endl; return argv[i+1]; } 
 				}
 			}
 		}

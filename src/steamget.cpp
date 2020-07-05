@@ -2,27 +2,21 @@
 #include "parameters.hpp"
 #include <cpr/cpr.h>
 
-using namespace std;
-
 namespace steamget {
-	const string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
+	const std::string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
 	
-	struct params { string fileid = "NONE"; string opath = "./"; };
+	struct params { std::string fileid = "NONE"; std::string opath = "./"; };
 
 	params getParameters() {
 		params out;
 		
-		cout << "getting args" << endl << "fileid" << endl;
+		std::cout << "getting args" << std::endl << "fileid" << std::endl;
 		// get the arguments
 		out.fileid = parameters::getArg('i');
-		cout << "opath" << endl;
+		std::cout << "opath" << std::endl;
 		out.opath = parameters::getArg('o');
 
 		return out;
-	}
-	
-	void prepairPayload( string* param ) {
-	
 	}
 
 	// cpr::Response sendHTTPPost( auto data ) { return; }
@@ -30,14 +24,14 @@ namespace steamget {
 }
 
 int main( int argc, char** argv ) {
-	cout << "init" << endl;
+	std::cout << "init" << std::endl;
 	parameters::init( argc, argv );	// pass the parameters
-	cout << "post init" << endl;
+	std::cout << "post init" << std::endl;
 
-	cout << "calling params" << endl;
+	std::cout << "calling params" << std::endl;
 	steamget::params P = steamget::getParameters();
-	cout << "post call, outputting params opath" << endl;
-	cout << P.opath << endl;
+	std::cout << "post call, outputting params opath" << std::endl;
+	std::cout << P.opath << std::endl;
 
 	return 0;
 }
