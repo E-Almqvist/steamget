@@ -24,12 +24,15 @@ namespace steamget {
 }
 
 int main( int argc, char** argv ) {
-	std::cout << "init" << std::endl;
-	parameters::init( argc, argv );	// pass the parameters
-	std::cout << "post init" << std::endl;
+	int alen[argc];
+	for( int i = 0; i < argc; i++ ) { alen[i] = sizeof(argv[i])/sizeof(char); }
+	parameters::init( argc, argv, alen );	// pass the parameters
 
+	std::cout << "post init" << std::endl;
 	std::cout << "calling params" << std::endl;
+	
 	steamget::params P = steamget::getParameters();
+	
 	std::cout << "post call, outputting params opath" << std::endl;
 	std::cout << P.opath << std::endl;
 
