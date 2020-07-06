@@ -17,8 +17,9 @@ namespace steamget {
 		return out;
 	}
 
-	// cpr::Response sendHTTPPost( auto data ) { return; }
-
+	void sendHTTPPost( std::string url, cpr::Payload payload ) {
+		
+	}	
 }
 
 int main( int argc, char** argv ) {
