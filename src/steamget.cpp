@@ -10,10 +10,8 @@ namespace steamget {
 	params getParameters() {
 		params out;
 		
-		std::cout << "getting args" << std::endl << "fileid" << std::endl;
 		// get the arguments
 		out.fileid = parameters::getArg('i');
-		std::cout << "opath" << std::endl;
 		out.opath = parameters::getArg('o');
 
 		return out;
@@ -24,16 +22,9 @@ namespace steamget {
 }
 
 int main( int argc, char** argv ) {
-	int alen[argc];
-	for( int i = 0; i < argc; i++ ) { alen[i] = sizeof(argv[i])/sizeof(char); }
-	parameters::init( argc, argv, alen );	// pass the parameters
-
-	std::cout << "post init" << std::endl;
-	std::cout << "calling params" << std::endl;
-	
+	parameters::init( argc, argv );	// pass the parameters
 	steamget::params P = steamget::getParameters();
 	
-	std::cout << "post call, outputting params opath" << std::endl;
 	std::cout << P.opath << std::endl;
 
 	return 0;
