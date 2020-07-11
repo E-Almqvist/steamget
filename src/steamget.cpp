@@ -17,8 +17,10 @@ namespace steamget {
 		return out;
 	}
 
-	void sendHTTPPost( std::string url, cpr::Payload payload ) {
-		
+	cpr::Response sendHTTPPost( std::string url, cpr::Payload payload ) {
+		cpr::Response r = cpr::Post(cpr::Url(url), payload);
+
+		return r;	
 	}	
 }
 
@@ -26,7 +28,16 @@ int main( int argc, char** argv ) {
 	parameters::init( argc, argv );	// pass the parameters
 	steamget::params P = steamget::getParameters();
 	
-	std::cout << P.opath << std::endl;
+	std::cout << "Sending HTTP Post request to " << steamget::SteamURL << std::endl << std::endl;
 
+	// Payload 
+	cpr::Payload payload = { 
+		{"itemcount", "1"}, 
+		{"publishedfileids", {"107455292"} } 
+	};
+
+	cpr::Response res = steamget::sendHTTPPost( steamget::SteamURL, payload );
+
+	std::cout << "--Return--" << std::endl << "Status: " << res.status_code << std::endl << "Elapsed (s): " << res.elapsed << std::endl << "Text: " << std::endl << res.text << std::endl;
 	return 0;
 }
