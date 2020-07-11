@@ -33,13 +33,13 @@ int main( int argc, char** argv ) {
 	// Payload 
 	cpr::Payload payload = { 
 		{"itemcount", "1"}, 
-		{"publishedfileids", 
+		{"publishedfileids[0]", 
 			{"107455292"} 
 		} 
 	};
 
 	cpr::Response res = steamget::sendHTTPPost( steamget::SteamURL, payload );
 
-	std::cout << "--Return--" << std::endl << "Status: " << res.status_code << std::endl << "Elapsed (s): " << res.elapsed << std::endl << "Text: " << std::endl << res.text << std::endl;
+	std::cout << "--Response--" << std::endl << "Status: " << res.status_code << std::endl << "Elapsed (s): " << res.elapsed << std::endl << "Text: " << std::endl << res.text << std::endl;
 	return 0;
 }
