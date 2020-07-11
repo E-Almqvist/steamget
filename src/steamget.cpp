@@ -3,7 +3,7 @@
 #include <cpr/cpr.h>
 
 namespace steamget {
-	const std::string SteamURL = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
+	const std::string SteamURL = "http://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
 	
 	struct params { std::string fileid = "NONE"; std::string opath = "./"; };
 
@@ -33,7 +33,9 @@ int main( int argc, char** argv ) {
 	// Payload 
 	cpr::Payload payload = { 
 		{"itemcount", "1"}, 
-		{"publishedfileids", {"107455292"} } 
+		{"publishedfileids", 
+			{"107455292"} 
+		} 
 	};
 
 	cpr::Response res = steamget::sendHTTPPost( steamget::SteamURL, payload );
