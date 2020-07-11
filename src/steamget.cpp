@@ -34,9 +34,12 @@ int main( int argc, char** argv ) {
 	cpr::Payload payload = { 
 		{"itemcount", "1"}, 
 		{"publishedfileids[0]", 
-			{"107455292"} 
+			{"107455292"} // insert the -i (the id parameter) here instead 
 		} 
 	};
+	
+	// TO DO: parse the response, and then download the file_url
+	// It returns something weird, no file extension... Probably a .gma, no clue.
 
 	cpr::Response res = steamget::sendHTTPPost( steamget::SteamURL, payload );
 
