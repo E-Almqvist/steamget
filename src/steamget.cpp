@@ -1,6 +1,9 @@
 #include <iostream>
 #include "parameters.hpp"
 #include <cpr/cpr.h>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 namespace steamget {
 	const std::string SteamURL = "http://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/"; // HTTP POST
@@ -21,28 +24,62 @@ namespace steamget {
 		cpr::Response r = cpr::Post(cpr::Url(url), payload);
 
 		return r;	
+	}
+
+	json getAddonData( std::string id ) {
+		json jsonRes = {}; // create a temporary buffer for the data
+		json addonInfo = {};
+		
+		cpr::Payload payload = {  // create the payload to be sent to the steam api
+			{"itemcount", "1"}, 
+			{"publishedfileids[0]", id} 
+		};
+		
+		std::cout << "Fetching addon information..." << std::endl;
+		cpr::Response res = sendHTTPPost( SteamURL, payload ); // send the post request with the payload
+
+		if( res.status_code == 200 ) { // if everything is fine, parse the json and download the addon
+
+			// std::cout << "Success!" << std::endl << res.text << std::endl;
+			jsonRes = json::parse(res.text);
+			addonInfo = jsonRes["response"]["publishedfiledetails"][0];
+
+			std::cout << addonInfo << std::endl;
+
+			if( addonInfo["file_url"] != NULL ) {
+				
+				std::cout << addonInfo["file_url"] << std::endl;
+
+			} else { // if there is no file url then there is nothing to do.
+
+				// either the id is invalid or there is no such addon
+				std::cout << "Invalid or empty addon." << std::endl;
+			
+			}
+
+		} else if( res.status_code == 400) { // steam will respond with error 400 (bad request) if the id isn't valid.
+
+			std::cout << "Invalid request! No such addon ID as '" << id << "'." << std::endl;
+
+		} else { // if something went wrong print out the status code and what steam sent
+
+			std::cout << "Error! Something went wrong with the connection to the Steam servers." << std::endl << "Status: " << res.status_code << std::endl << "Text: " << res.text << std::endl;
+
+		}
+
+		return addonInfo;
+		
 	}	
 }
 
 int main( int argc, char** argv ) {
 	parameters::init( argc, argv );	// pass the parameters
-	steamget::params P = steamget::getParameters();
+	steamget::params P = steamget::getParameters(); // get the parameters
 	
-	std::cout << "Sending HTTP Post request to " << steamget::SteamURL << std::endl << std::endl;
-
-	// Payload 
-	cpr::Payload payload = { 
-		{"itemcount", "1"}, 
-		{"publishedfileids[0]", 
-			{"107455292"} // insert the -i (the id parameter) here instead 
-		} 
-	};
-	
-	// TO DO: parse the response, and then download the file_url
-	// It returns something weird, no file extension... Probably a .gma, no clue.
-
-	cpr::Response res = steamget::sendHTTPPost( steamget::SteamURL, payload );
-
-	std::cout << "--Response--" << std::endl << "Status: " << res.status_code << std::endl << "Elapsed (s): " << res.elapsed << std::endl << "Text: " << std::endl << res.text << std::endl;
+	if( P.fileid != "" ) { // check if the id is not nothing
+		steamget::getAddonData(P.fileid);	
+	} else {
+		std::cout << "You need to specify a ID!" << std::endl << "steamget -i {ID} -o {path=./}" << std::endl; 
+	}
 	return 0;
 }
