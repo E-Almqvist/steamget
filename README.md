@@ -8,7 +8,7 @@ This was primarely created for Garry's Mod addons, so do not be surprised if it 
 ### Installation
 Currently there is no installation script nor a package so for now you will have to create a Makefile using [cmake](https://cmake.org/) with the [CMakeLists.txt](https://github.com/E-Almqvist/steamget/blob/master/src/CMakeLists.txt) and then compile it yourself. 
 #### For lazy people
-	git clone https://github.com/E-Almqvist/steamget.git; cd steamget; mkdir bin; cmake ../src; make
+	git clone https://github.com/E-Almqvist/steamget.git; cd steamget; mkdir bin; cd bin; cmake ../src; make
 
 ### Usage
 	steamget -i {fileid} -o {outpath = './'}
