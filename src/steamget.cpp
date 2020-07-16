@@ -2,6 +2,7 @@
 #include "parameters.hpp"
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
+#include <stdlib.h>
 
 using json = nlohmann::json;
 
@@ -73,7 +74,8 @@ namespace steamget {
 		}
 
 		std::string downloadFileURL( std::string url ) { 
-			std::cout << "Downloading files from Steam..." << std::endl;	
+			std::cout << "Downloading files from Steam..." << std::endl;
+			system("echo test");
 			return ""; 
 		} 
 	}
